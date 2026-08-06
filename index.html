@@ -3,376 +3,1181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MARSPAY — One Pager for Partners</title>
+<title>MARSPAY — Рассрочка, которая вписывается в твой стиль</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  :root {
+    --pink: #ff6b9d;
+    --pink-light: #ffb6c1;
+    --pink-soft: #fff0f5;
+    --blue: #4facfe;
+    --blue-soft: #f0f8ff;
+    --dark: #1a1a2e;
+    --gray: #666;
+    --light-gray: #f5f5f7;
+    --glass: rgba(255,255,255,0.7);
+    --glass-border: rgba(255,255,255,0.4);
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, #fff0f5 0%, #f0f8ff 50%, #fff5f8 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
+    background: linear-gradient(180deg, #fff5f8 0%, #f0f8ff 30%, #fff 60%, #fff5f8 100%);
+    color: var(--dark);
+    overflow-x: hidden;
+    line-height: 1.6;
   }
-  .page {
-    width: 210mm;
-    min-height: 297mm;
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 25px 80px rgba(255, 105, 180, 0.15), 0 10px 30px rgba(0,0,0,0.08);
-    padding: 60px 50px;
-    position: relative;
-    overflow: hidden;
-  }
-  .page::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(255,182,193,0.25) 0%, transparent 70%);
+
+  /* Floating background orbs */
+  .orb {
+    position: fixed;
     border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+    animation: float 20s ease-in-out infinite;
   }
-  .page::after {
-    content: '';
-    position: absolute;
-    bottom: -80px;
-    left: -80px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(135,206,235,0.2) 0%, transparent 70%);
-    border-radius: 50%;
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--pink-light), transparent);
+    top: -10%; right: -10%;
+    animation-delay: 0s;
   }
-  .header {
+  .orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, var(--blue), transparent);
+    bottom: 20%; left: -10%;
+    animation-delay: -7s;
+  }
+  .orb-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, #ff8fab, transparent);
+    top: 50%; right: 10%;
+    animation-delay: -14s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.05); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
-    position: relative;
-    z-index: 1;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+  }
+  nav.scrolled {
+    padding: 12px 24px;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.05);
   }
   .logo {
-    font-size: 32px;
-    font-weight: 800;
-    background: linear-gradient(135deg, #ff6b9d, #4facfe);
+    font-size: 24px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--pink), var(--blue));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -1px;
+    cursor: pointer;
   }
-  .tagline {
-    font-size: 13px;
-    color: #888;
-    font-weight: 400;
-    text-align: right;
-    line-height: 1.4;
-  }
-  .hero {
-    text-align: center;
-    margin-bottom: 50px;
-    position: relative;
-    z-index: 1;
-  }
-  .hero h1 {
-    font-size: 42px;
-    font-weight: 800;
-    color: #1a1a2e;
-    margin-bottom: 16px;
-    line-height: 1.15;
-    letter-spacing: -1.5px;
-  }
-  .hero h1 span {
-    background: linear-gradient(135deg, #ff6b9d, #ff8fab);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero p {
-    font-size: 18px;
-    color: #555;
-    max-width: 500px;
-    margin: 0 auto;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-  .stats-row {
+  .nav-links {
     display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-bottom: 50px;
-    position: relative;
-    z-index: 1;
+    gap: 32px;
+    align-items: center;
   }
-  .stat {
-    text-align: center;
-    padding: 20px 30px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,240,245,0.6));
-    border-radius: 20px;
-    border: 1px solid rgba(255,182,193,0.3);
-    min-width: 140px;
-  }
-  .stat-number {
-    font-size: 36px;
-    font-weight: 800;
-    background: linear-gradient(135deg, #ff6b9d, #4facfe);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-  }
-  .stat-label {
-    font-size: 13px;
-    color: #666;
-    margin-top: 6px;
-    font-weight: 500;
-  }
-  .section {
-    margin-bottom: 40px;
-    position: relative;
-    z-index: 1;
-  }
-  .section-title {
+  .nav-links a {
+    text-decoration: none;
+    color: var(--gray);
     font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #ff6b9d;
-    margin-bottom: 20px;
-  }
-  .benefits {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  .benefit {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 18px 20px;
-    background: #fafafa;
-    border-radius: 16px;
-    border-left: 4px solid #ff6b9d;
-    transition: transform 0.2s;
-  }
-  .benefit:hover { transform: translateX(4px); }
-  .benefit-icon {
-    font-size: 24px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .benefit-text h3 {
-    font-size: 15px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 4px;
-  }
-  .benefit-text p {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.5;
-  }
-  .how-it-works {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 10px;
-  }
-  .step {
-    flex: 1;
-    text-align: center;
-    padding: 24px 16px;
-    background: linear-gradient(180deg, #fff 0%, #f8f9ff 100%);
-    border-radius: 20px;
-    border: 1px solid rgba(79,172,254,0.15);
+    font-weight: 500;
+    transition: color 0.2s;
     position: relative;
   }
-  .step-num {
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, #ff6b9d, #4facfe);
-    color: #fff;
-    border-radius: 50%;
+  .nav-links a:hover {
+    color: var(--pink);
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--pink), var(--blue));
+    transition: width 0.3s;
+    border-radius: 2px;
+  }
+  .nav-links a:hover::after {
+    width: 100%;
+  }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--pink), #ff8fab);
+    color: #fff !important;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: 0 4px 15px rgba(255,107,157,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,107,157,0.4);
+  }
+  .nav-cta::after { display: none !important; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 14px;
-    margin: 0 auto 12px;
-  }
-  .step h4 {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 6px;
-  }
-  .step p {
-    font-size: 12px;
-    color: #777;
-    line-height: 1.5;
-  }
-  .cta-box {
-    background: linear-gradient(135deg, #1a1a2e, #2d2d44);
-    border-radius: 24px;
-    padding: 40px;
-    text-align: center;
-    color: #fff;
-    margin-top: 40px;
+    padding: 120px 24px 80px;
     position: relative;
     z-index: 1;
-    overflow: hidden;
   }
-  .cta-box::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 30% 30%, rgba(255,107,157,0.15) 0%, transparent 50%);
+  .hero-content {
+    max-width: 900px;
+    text-align: center;
   }
-  .cta-box h2 {
-    font-size: 26px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    position: relative;
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(79,172,254,0.1));
+    border: 1px solid rgba(255,107,157,0.2);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--pink);
+    margin-bottom: 32px;
+    animation: fadeInUp 0.8s ease;
   }
-  .cta-box p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.7);
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2.5px;
     margin-bottom: 24px;
-    position: relative;
+    animation: fadeInUp 0.8s ease 0.1s both;
   }
-  .cta-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, var(--pink), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-subtitle {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--gray);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    font-weight: 400;
+    line-height: 1.6;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease 0.3s both;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--pink), #ff8fab);
     color: #fff;
-    padding: 16px 40px;
+    padding: 16px 36px;
     border-radius: 50px;
     font-weight: 700;
     font-size: 15px;
     text-decoration: none;
-    box-shadow: 0 10px 30px rgba(255,107,157,0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 10px 30px rgba(255,107,157,0.35);
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255,107,157,0.45);
+  }
+  .btn-secondary {
+    background: var(--glass);
+    color: var(--dark);
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.9);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray);
+    font-size: 12px;
+    font-weight: 500;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint span {
+    width: 24px;
+    height: 36px;
+    border: 2px solid var(--pink-light);
+    border-radius: 12px;
     position: relative;
   }
-  .cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(255,107,157,0.5);
+  .scroll-hint span::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 8px;
+    background: var(--pink);
+    border-radius: 2px;
+    animation: scrollDot 2s infinite;
   }
-  .footer {
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+  @keyframes scrollDot {
+    0% { opacity: 1; top: 6px; }
+    100% { opacity: 0; top: 18px; }
+  }
+
+  /* Section styles */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 24px;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-header {
     text-align: center;
-    margin-top: 30px;
+    margin-bottom: 60px;
+  }
+  .section-tag {
+    display: inline-block;
     font-size: 12px;
-    color: #aaa;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--pink);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .section-desc {
+    font-size: 17px;
+    color: var(--gray);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* Calculator */
+  .calc-section {
+    background: linear-gradient(135deg, var(--pink-soft), var(--blue-soft));
+    border-radius: 32px;
+    padding: 60px 40px;
+    margin: 0 auto 100px;
+    max-width: 900px;
+    border: 1px solid rgba(255,107,157,0.1);
+  }
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .calc-inputs h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .input-group {
+    margin-bottom: 24px;
+  }
+  .input-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .input-group input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--pink-light), var(--blue));
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .input-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--pink);
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(255,107,157,0.3);
+  }
+  .input-group input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--pink);
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(255,107,157,0.3);
+  }
+  .range-value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+  }
+  .range-value .big {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--pink);
+  }
+  .calc-result {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 36px;
+    border: 1px solid var(--glass-border);
+    text-align: center;
+  }
+  .calc-result h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .calc-result .payment-amount {
+    font-size: 56px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--pink), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin: 8px 0;
+  }
+  .calc-result .payment-period {
+    font-size: 15px;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+  .calc-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    text-align: left;
+  }
+  .calc-detail {
+    background: rgba(255,255,255,0.6);
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+  }
+  .calc-detail strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 2px;
+  }
+  .calc-detail span {
+    color: var(--gray);
+  }
+
+  /* How it works */
+  .steps {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .step-card {
+    flex: 1;
+    min-width: 260px;
+    max-width: 320px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 36px 28px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+  }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink), var(--blue));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .step-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+  }
+  .step-card:hover::before {
+    opacity: 1;
+  }
+  .step-emoji {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .step-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .step-card p {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+  .step-num {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(255,107,157,0.08);
+    line-height: 1;
+  }
+
+  /* Features */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .feature-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--blue));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .feature-card:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    transform: translateY(-4px);
+  }
+  .feature-card:hover::after {
+    transform: scaleX(1);
+  }
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--pink-soft), var(--blue-soft));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .feature-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .feature-card p {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* Partners section */
+  .partners-section {
+    background: linear-gradient(135deg, var(--dark), #2d2d44);
+    border-radius: 32px;
+    padding: 80px 40px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .partners-section::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,107,157,0.1) 0%, transparent 50%);
+  }
+  .partners-section .section-tag { color: var(--pink-light); }
+  .partners-section .section-title { color: #fff; }
+  .partners-section .section-desc { color: rgba(255,255,255,0.6); }
+  .partner-stats {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin: 48px 0;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .p-stat {
+    text-align: center;
+  }
+  .p-stat .num {
+    font-size: 42px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--pink), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .p-stat .label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 4px;
+  }
+
+  /* Testimonials */
+  .testimonials {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .testimonials::-webkit-scrollbar { height: 4px; }
+  .testimonials::-webkit-scrollbar-thumb {
+    background: var(--pink-light);
+    border-radius: 2px;
+  }
+  .testimonial {
+    flex: 0 0 340px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 32px;
+    scroll-snap-align: start;
+  }
+  .testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .testimonial-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .testimonial-name {
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .testimonial-role {
+    font-size: 13px;
+    color: var(--gray);
+  }
+  .testimonial-text {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .testimonial-stars {
+    color: #ffc107;
+    font-size: 16px;
+    margin-top: 12px;
+    letter-spacing: 2px;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    padding: 120px 24px;
+  }
+  .cta-section h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  .cta-section p {
+    font-size: 18px;
+    color: var(--gray);
+    max-width: 480px;
+    margin: 0 auto 40px;
+  }
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta-btn-large {
+    padding: 20px 48px;
+    font-size: 17px;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.5);
+    padding: 60px 24px 30px;
+    text-align: center;
     position: relative;
     z-index: 1;
   }
-  .footer a {
-    color: #ff6b9d;
-    text-decoration: none;
-    font-weight: 600;
+  .footer-logo {
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--pink), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    display: inline-block;
   }
-  @media print {
-    body { background: #fff; padding: 0; }
-    .page { box-shadow: none; border-radius: 0; width: 210mm; min-height: 297mm; }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover {
+    color: var(--pink-light);
+  }
+  .footer-copy {
+    font-size: 13px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Animations on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .calc-grid { grid-template-columns: 1fr; }
+    .steps { flex-direction: column; align-items: center; }
+    .step-card { max-width: 100%; width: 100%; }
+    .partner-stats { gap: 30px; }
+    .testimonial { flex: 0 0 300px; }
+    .hero { padding-top: 100px; }
+    section { padding: 60px 16px; }
+    .calc-section, .partners-section { padding: 40px 20px; }
+  }
+
+  /* Pulse animation for CTA */
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 10px 30px rgba(255,107,157,0.35); }
+    50% { box-shadow: 0 10px 40px rgba(255,107,157,0.55); }
+  }
+  .pulse {
+    animation: pulse 2s infinite;
   }
 </style>
 <base target="_blank">
 </head>
 <body>
-<div class="page">
-  <div class="header">
-    <div class="logo">MARSPAY</div>
-    <div class="tagline">BNPL that fits your lifestyle<br>Powered by Telegram</div>
-  </div>
 
-  <div class="hero">
-    <h1>Увеличь продажи на <span>+30%</span><br>с рассрочкой MARSPAY</h1>
-    <p>Подключи оплату частями за 1 день. Без интеграции разработчиков. Без скрытых комиссий. Твои клиенты платят комфортно — ты получаешь деньги сразу.</p>
-  </div>
+<!-- Background orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
 
-  <div class="stats-row">
-    <div class="stat">
-      <span class="stat-number">+30%</span>
-      <div class="stat-label">К среднему чеку</div>
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="logo">MARSPAY</div>
+  <div class="nav-links">
+    <a href="#how">Как работает</a>
+    <a href="#calc">Калькулятор</a>
+    <a href="#partners">Партнёрам</a>
+    <a href="https://t.me/MARSPAY_bot" class="nav-cta" target="_blank">Открыть бота →</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span>✨</span> Новый способ покупать без кредитов
     </div>
-    <div class="stat">
-      <span class="stat-number">+20%</span>
-      <div class="stat-label">К конверсии</div>
-    </div>
-    <div class="stat">
-      <span class="stat-number">72%</span>
-      <div class="stat-label">Покупателей хотят BNPL</div>
+    <h1>
+      Рассрочка, которая<br>
+      <span class="gradient-text">вписывается в твой стиль</span>
+    </h1>
+    <p class="hero-subtitle">
+      Купи сейчас — плати потом. Одобрение за 30 секунд, никаких процентов и скрытых комиссий. 
+      Только ты, твой телефон и вещь, которую ты хочешь.
+    </p>
+    <div class="hero-buttons">
+      <a href="https://t.me/MARSPAY_bot" class="btn-primary pulse" target="_blank">
+        🚀 Начать покупать
+      </a>
+      <a href="#calc" class="btn-secondary">
+        🧮 Рассчитать рассрочку
+      </a>
     </div>
   </div>
+  <div class="scroll-hint">
+    <span></span>
+    Листай вниз
+  </div>
+</section>
 
-  <div class="section">
-    <div class="section-title">Почему магазины выбирают MARSPAY</div>
-    <div class="benefits">
-      <div class="benefit">
-        <div class="benefit-icon">⚡</div>
-        <div class="benefit-text">
-          <h3>Запуск за 1 день</h3>
-          <p>Никакой сложной интеграции. Достаточно Telegram-бота и ссылки на оплату.</p>
+<!-- Calculator -->
+<section id="calc">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Калькулятор</div>
+      <h2 class="section-title">Сколько заплачу?</h2>
+      <p class="section-desc">Перетащи ползунок и посмотри, как легко разбить покупку на комфортные платежи</p>
+    </div>
+
+    <div class="calc-section reveal">
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <h3>🛍️ Моя покупка</h3>
+
+          <div class="input-group">
+            <label>Сумма покупки</label>
+            <input type="range" id="amountRange" min="50" max="1000" value="250" step="10">
+            <div class="range-value">
+              <span>€50</span>
+              <span class="big" id="amountValue">€250</span>
+              <span>€1000</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Срок рассрочки</label>
+            <input type="range" id="periodRange" min="2" max="10" value="4" step="1">
+            <div class="range-value">
+              <span>2 мес</span>
+              <span class="big" id="periodValue">4 мес</span>
+              <span>10 мес</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Первый взнос</label>
+            <input type="range" id="downRange" min="0" max="50" value="25" step="5">
+            <div class="range-value">
+              <span>0%</span>
+              <span class="big" id="downValue">25%</span>
+              <span>50%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-result">
+          <h4>💳 Ежемесячный платёж</h4>
+          <div class="payment-amount" id="monthlyPayment">€47</div>
+          <div class="payment-period" id="paymentPeriod">4 платежа по €47</div>
+
+          <div class="calc-details">
+            <div class="calc-detail">
+              <strong id="totalAmount">€250</strong>
+              <span>Общая сумма</span>
+            </div>
+            <div class="calc-detail">
+              <strong id="overpayment">€0</strong>
+              <span>Переплата</span>
+            </div>
+            <div class="calc-detail">
+              <strong id="firstPayment">€63</strong>
+              <span>Первый взнос</span>
+            </div>
+            <div class="calc-detail">
+              <strong>0%</strong>
+              <span>Комиссия</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="benefit">
-        <div class="benefit-icon">💰</div>
-        <div class="benefit-text">
-          <h3>Низкая комиссия</h3>
-          <p>Ниже, чем у банков и крупных BNPL-провайдеров. Честная прозрачная ставка.</p>
-        </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section id="how">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Как это работает</div>
+      <h2 class="section-title">Проще, чем заказать пиццу</h2>
+      <p class="section-desc">Три шага — и вещь у тебя. Никаких бумаг, очередей и стресса</p>
+    </div>
+
+    <div class="steps">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <span class="step-emoji">🛒</span>
+        <h3>Выбираешь товар</h3>
+        <p>Нашёл крутую вещь в партнёрском магазине? Жми «Купить в рассрочку от MARSPAY» прямо в Telegram</p>
       </div>
-      <div class="benefit">
-        <div class="benefit-icon">🛡️</div>
-        <div class="benefit-text">
-          <h3>Мы берём риски на себя</h3>
-          <p>Ты получаешь полную сумму сразу. Просрочки и дефолты — наша забота.</p>
-        </div>
+      <div class="step-card reveal" style="transition-delay: 0.1s">
+        <div class="step-num">02</div>
+        <span class="step-emoji">⚡</span>
+        <h3>Получаешь одобрение</h3>
+        <p>Наш бот анализирует твой профиль за 30 секунд. Никаких справок о доходах и кредитной истории</p>
       </div>
-      <div class="benefit">
-        <div class="benefit-icon">📱</div>
-        <div class="benefit-text">
-          <h3>Твоя аудитория в Telegram</h3>
-          <p>Твои клиенты уже там. MARSPAY работает там, где они привыкли покупать.</p>
-        </div>
+      <div class="step-card reveal" style="transition-delay: 0.2s">
+        <div class="step-num">03</div>
+        <span class="step-emoji">🎉</span>
+        <h3>Забираешь покупку</h3>
+        <p>Магазин получает деньги сразу. Ты платишь комфортными частями — без процентов и переплат</p>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="section">
-    <div class="section-title">Как это работает</div>
-    <div class="how-it-works">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h4>Клиент выбирает товар</h4>
-        <p>В твоём магазине он видит кнопку «Оплата частями MARSPAY»</p>
+<!-- Features -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Почему MARSPAY</div>
+      <h2 class="section-title">Кредит? Не, не слышал</h2>
+      <p class="section-desc">Мы создали рассрочку для тех, кто ценит свободу и не хочет связываться с банками</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🚫</div>
+        <h3>Ноль процентов</h3>
+        <p>Никаких процентов, скрытых комиссий и страховок. Ты платишь ровно столько, сколько стоит товар</p>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h4>Одобрение за 30 сек</h4>
-        <p>Без бумаг и проверок. Клиент получает решение прямо в Telegram</p>
+      <div class="feature-card reveal" style="transition-delay: 0.05s">
+        <div class="feature-icon">⚡</div>
+        <h3>30 секунд на одобрение</h3>
+        <p>AI-скоринг анализирует твой профиль мгновенно. Решение приходит быстрее, чем ты прочитаешь это предложение</p>
       </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h4>Ты получаешь деньги</h4>
-        <p>Полная сумма на твой счёт. Мы сами собираем платежи с клиента</p>
+      <div class="feature-card reveal" style="transition-delay: 0.1s">
+        <div class="feature-icon">📱</div>
+        <h3>Всё в Telegram</h3>
+        <p>Не нужно скачивать новые приложения. Покупай, отслеживай платежи и получай уведомления там, где ты уже есть</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.15s">
+        <div class="feature-icon">🔄</div>
+        <h3>Гибкие сроки</h3>
+        <p>От 2 до 10 месяцев. Выбирай комфортный график платежей и меняй его, если жизнь внесла коррективы</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.2s">
+        <div class="feature-icon">🎁</div>
+        <h3>Кешбэк у партнёров</h3>
+        <p>Покупай у наших партнёров и получай кешбэк до 5%. Чем больше покупаешь — тем больше возвращается</p>
+      </div>
+      <div class="feature-card reveal" style="transition-delay: 0.25s">
+        <div class="feature-icon">🔒</div>
+        <h3>Безопасность</h3>
+        <p>Твои данные зашифрованы. Мы не продаём информацию третьим лицам и не спамим рекламой</p>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="cta-box">
-    <h2>Стань первым партнёром MARSPAY</h2>
-    <p>Первым 5 магазинам — 0% комиссии на первый месяц в обмен на обратную связь</p>
-    <a href="https://t.me/MARSPAY_bot" class="cta-btn">Начать сотрудничество →</a>
-  </div>
+<!-- Partners -->
+<section id="partners">
+  <div class="container">
+    <div class="partners-section reveal">
+      <div class="section-tag">Партнёрам</div>
+      <h2 class="section-title">Продавай больше с MARSPAY</h2>
+      <p class="section-desc" style="color: rgba(255,255,255,0.6)">
+        Подключи рассрочку за 1 день. Без интеграции разработчиков. Без скрытых комиссий.
+      </p>
 
-  <div class="footer">
-    MARSPAY © 2026 | <a href="https://t.me/MARSPAY_bot">t.me/MARSPAY_bot</a> | <a href="mailto:partners@marspay.io">partners@marspay.io</a>
+      <div class="partner-stats">
+        <div class="p-stat">
+          <div class="num">+30%</div>
+          <div class="label">К среднему чеку</div>
+        </div>
+        <div class="p-stat">
+          <div class="num">+20%</div>
+          <div class="label">К конверсии</div>
+        </div>
+        <div class="p-stat">
+          <div class="num">72%</div>
+          <div class="label">Покупателей хотят BNPL</div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative;">
+        <a href="mailto:partners@marspay.io" class="btn-primary" style="background: linear-gradient(135deg, var(--pink), #ff8fab);">
+          🤝 Стать партнёром
+        </a>
+        <a href="#" class="btn-secondary" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);"
+           onclick="alert('Скачай one-pager: partners@marspay.io'); return false;">
+          📄 Скачать презентацию
+        </a>
+      </div>
+
+      <p style="margin-top: 24px; font-size: 13px; color: rgba(255,255,255,0.4);">
+        Первым 5 магазинам — 0% комиссии на первый месяц
+      </p>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- Testimonials -->
+<section>
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Отзывы</div>
+      <h2 class="section-title">Что говорят первые пользователи</h2>
+    </div>
+
+    <div class="testimonials reveal">
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">K</div>
+          <div>
+            <div class="testimonial-name">Кейт</div>
+            <div class="testimonial-role">Студентка, Берлин</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Купила кроссовки на 180€, разбила на 4 платежа. Никаких процентов, всё честно. Бот работает как часы — напоминает за день до списания."
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar" style="background: linear-gradient(135deg, var(--blue), #7ec8e3);">M</div>
+          <div>
+            <div class="testimonial-name">Макс</div>
+            <div class="testimonial-role">Владелец магазина одежды</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Подключили MARSPAY за день. Средний чек вырос с 65€ до 95€. Клиенты довольны, мы получаем деньги сразу. Идеально для малого бизнеса."
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar" style="background: linear-gradient(135deg, #a78bfa, #c4b5fd);">A</div>
+          <div>
+            <div class="testimonial-name">Анна</div>
+            <div class="testimonial-role">Фрилансер, Амстердам</div>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Боюсь кредиток, но иногда нужно купить что-то срочно. MARSPAY — это не кредит, это просто разбиение платежа. Очень удобно и спокойно."
+        </div>
+        <div class="testimonial-stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="reveal">
+      <h2>
+        Готов изменить<br>
+        <span class="gradient-text">свои покупки?</span>
+      </h2>
+      <p>Присоединяйся к MARSPAY прямо сейчас. Первые 100 пользователей получают бонус 200 Stars на счёт.</p>
+      <div class="cta-buttons">
+        <a href="https://t.me/MARSPAY_bot" class="btn-primary cta-btn-large pulse" target="_blank">
+          🚀 Открыть MARSPAY в Telegram
+        </a>
+      </div>
+      <p style="margin-top: 24px; font-size: 13px; color: var(--gray);">
+        Бесплатно. Без обязательств. Без скрытых комиссий.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">MARSPAY</div>
+  <p style="color: rgba(255,255,255,0.4); font-size: 14px; margin-bottom: 24px;">
+    Рассрочка, которая вписывается в твой стиль
+  </p>
+  <div class="footer-links">
+    <a href="https://t.me/MARSPAY_bot" target="_blank">Telegram бот</a>
+    <a href="mailto:partners@marspay.io">Партнёрам</a>
+    <a href="mailto:hello@marspay.io">Связаться</a>
+  </div>
+  <div class="footer-copy">
+    © 2026 MARSPAY. Все права защищены. <br>
+    <span style="font-size: 12px; opacity: 0.6;">MARSPAY не является банком. Услуги предоставляются в рамках действующего законодательства.</span>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Calculator logic
+  const amountRange = document.getElementById('amountRange');
+  const periodRange = document.getElementById('periodRange');
+  const downRange = document.getElementById('downRange');
+
+  const amountValue = document.getElementById('amountValue');
+  const periodValue = document.getElementById('periodValue');
+  const downValue = document.getElementById('downValue');
+
+  const monthlyPayment = document.getElementById('monthlyPayment');
+  const paymentPeriod = document.getElementById('paymentPeriod');
+  const totalAmount = document.getElementById('totalAmount');
+  const overpayment = document.getElementById('overpayment');
+  const firstPayment = document.getElementById('firstPayment');
+
+  function updateCalc() {
+    const amount = parseInt(amountRange.value);
+    const period = parseInt(periodRange.value);
+    const downPercent = parseInt(downRange.value);
+
+    const downPayment = Math.round(amount * downPercent / 100);
+    const remaining = amount - downPayment;
+    const monthly = Math.round(remaining / period);
+
+    amountValue.textContent = '€' + amount;
+    periodValue.textContent = period + ' мес';
+    downValue.textContent = downPercent + '%';
+
+    monthlyPayment.textContent = '€' + monthly;
+    paymentPeriod.textContent = period + ' платежа по €' + monthly;
+    totalAmount.textContent = '€' + amount;
+    overpayment.textContent = '€0';
+    firstPayment.textContent = '€' + downPayment;
+  }
+
+  amountRange.addEventListener('input', updateCalc);
+  periodRange.addEventListener('input', updateCalc);
+  downRange.addEventListener('input', updateCalc);
+  updateCalc();
+
+  // Scroll reveal animation
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
