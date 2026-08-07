@@ -275,6 +275,62 @@
     text-decoration: none;
     font-weight: 600;
   }
+    /* Mobile adaptive */
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+      align-items: flex-start;
+    }
+    .page {
+      width: 100%;
+      min-height: auto;
+      padding: 30px 20px;
+      border-radius: 16px;
+    }
+    .header {
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .tagline {
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 28px;
+      letter-spacing: -1px;
+    }
+    .hero p {
+      font-size: 15px;
+    }
+    .stats-row {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .stat {
+      min-width: auto;
+      width: 100%;
+    }
+    .benefits {
+      grid-template-columns: 1fr;
+    }
+    .how-it-works {
+      flex-direction: column;
+    }
+    .step {
+      width: 100%;
+    }
+    .cta-box {
+      padding: 28px 20px;
+    }
+    .cta-box h2 {
+      font-size: 20px;
+    }
+    .cta-btn {
+      padding: 14px 28px;
+      font-size: 14px;
+    }
+  }
+
   @media print {
     body { background: #fff; padding: 0; }
     .page { box-shadow: none; border-radius: 0; width: 210mm; min-height: 297mm; }
