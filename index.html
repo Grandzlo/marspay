@@ -850,6 +850,7 @@
   }
 </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 
@@ -980,28 +981,28 @@
   <div class="container">
     <div class="section-header reveal">
       <div class="section-tag">Как это работает</div>
-      <h2 class="section-title">Проще, чем заказать пиццу</h2>
-      <p class="section-desc">Три шага — и вещь у тебя. Никаких бумаг, очередей и стресса</p>
+      <h2 class="section-title">Три шага до свободы покупок</h2>
+      <p class="section-desc">MARSCARD — это не кредитка. Это новый опыт между дебетовой картой и BNPL</p>
     </div>
 
     <div class="steps">
       <div class="step-card reveal">
         <div class="step-num">01</div>
-        <span class="step-emoji">🛒</span>
-        <h3>Выбираешь товар</h3>
-        <p>Нашёл крутую вещь в партнёрском магазине? Жми «Купить в рассрочку от MARSPAY» прямо в Telegram</p>
+        <span class="step-emoji">💳</span>
+        <h3>Получи карту MARSCARD</h3>
+        <p>Виртуальная карта в Telegram за 30 секунд. Никаких справок и проверок — просто запускаешь бота</p>
       </div>
       <div class="step-card reveal" style="transition-delay: 0.1s">
         <div class="step-num">02</div>
-        <span class="step-emoji">⚡</span>
-        <h3>Получаешь одобрение</h3>
-        <p>Наш бот анализирует твой профиль за 30 секунд. Никаких справок о доходах и кредитной истории</p>
+        <span class="step-emoji">🛍️</span>
+        <h3>Покупай у партнёров</h3>
+        <p>Карта работает везде, где есть MARSPAY. У каждого партнёра свой гибкий срок рассрочки — от 2 до 10 месяцев</p>
       </div>
       <div class="step-card reveal" style="transition-delay: 0.2s">
         <div class="step-num">03</div>
-        <span class="step-emoji">🎉</span>
-        <h3>Забираешь покупку</h3>
-        <p>Магазин получает деньги сразу. Ты платишь комфортными частями — без процентов и переплат</p>
+        <span class="step-emoji">✨</span>
+        <h3>Плати частями автоматически</h3>
+        <p>Сумма разбивается на график, деньги списываются сами. 0% переплаты, 0% процентов</p>
       </div>
     </div>
   </div>
@@ -1197,17 +1198,17 @@
   // Calculator logic
   const amountRange = document.getElementById('amountRange');
   const periodRange = document.getElementById('periodRange');
-  const downRange = document.getElementById('downRange');
+  const cashbackRange = document.getElementById('cashbackRange');
 
   const amountValue = document.getElementById('amountValue');
   const periodValue = document.getElementById('periodValue');
-  const downValue = document.getElementById('downValue');
+  const cashbackValue = document.getElementById('cashbackValue');
 
   const monthlyPayment = document.getElementById('monthlyPayment');
   const paymentPeriod = document.getElementById('paymentPeriod');
   const totalAmount = document.getElementById('totalAmount');
-  const overpayment = document.getElementById('overpayment');
-  const firstPayment = document.getElementById('firstPayment');
+  const cashbackAmount = document.getElementById('cashbackAmount');
+  const effectiveCost = document.getElementById('effectiveCost');
 
   function updateCalc() {
     const amount = parseInt(amountRange.value);
