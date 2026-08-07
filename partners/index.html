@@ -406,20 +406,30 @@
   </div>
 
 <!-- Блок с картой MARSCARD -->
-<div class="section" style="text-align: center; padding: 50px 20px; position: relative; z-index: 1;">
+<div class="section" style="text-align: center; padding: 60px 20px; position: relative; z-index: 1;">
   <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #ff6b9d; margin-bottom: 16px;">Вот что получит твой клиент</div>
-  <h3 style="font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 30px;"><span style="background: linear-gradient(135deg, #ff6b9d, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">это MARSCARD</span></h3>
+  <h3 style="font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 40px;">Не просто рассрочка — <span style="background: linear-gradient(135deg, #ff6b9d, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">это MARSCARD</span></h3>
   
-  <div class="card-3d" style="perspective: 800px; display: inline-block;">
-    <img src="images/marscard.png" alt="MARSCARD" 
-         style="width: 380px; border-radius: 14px; 
-                box-shadow: 0 30px 70px rgba(255, 105, 180, 0.3), 0 15px 30px rgba(0,0,0,0.15);
-                transform: rotateY(-4deg) rotateX(2deg); 
-                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+  <!-- Подушка позади карты -->
+  <div style="position: relative; display: inline-block;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 420px; height: 280px; background: radial-gradient(ellipse, rgba(255,182,193,0.35) 0%, transparent 70%); border-radius: 50%; z-index: 0;"></div>
+    
+    <div class="card-3d" style="perspective: 800px; position: relative; z-index: 1;">
+      <img src="images/marscard.png" alt="MARSCARD" 
+           style="width: 380px; border-radius: 14px; 
+                  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+                  transform: rotateY(-4deg) rotateX(2deg); 
+                  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+    </div>
+    
+    <!-- Отражение -->
+    <div style="margin-top: 8px; opacity: 0.15; transform: scaleY(-1); filter: blur(2px);">
+      <img src="images/marscard.png" alt="" style="width: 380px; border-radius: 14px; mask-image: linear-gradient(to bottom, rgba(0,0,0,1), transparent); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), transparent);">
+    </div>
   </div>
   
-  <p style="font-size: 14px; color: #888; margin-top: 24px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-    
+  <p style="font-size: 14px; color: #888; margin-top: 20px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+    Виртуальная карта в Telegram. Покупки в рассрочку, кешбэк у партнёров, AI-рекомендации — всё в одном месте.
   </p>
 </div>
 
